@@ -1,0 +1,2157 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{wrangle\_act}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Wrangle and Analyze Data}\label{wrangle-and-analyze-data}
+
+    \subsection{Introduction}\label{introduction}
+
+The purpose of this project is to wrangle and analyze data from
+WeRateDogs, a humorous Twitter account that rates dog photos. I will
+gather data from various sources, in several formats, assess the quality
+of the data, clean it, and then provide analysis.
+
+From the course \textbf{Project Details}, the tasks to accomplish are: -
+Data wrangling, which consists of: - Gathering data - Assessing data -
+Cleaning data - Storing, analyzing, and visualizing your wrangled data -
+Reporting on 1) your data wrangling efforts and 2) your data analyses
+and visualizations
+
+\paragraph{Imports}\label{imports}
+
+Import libraries as dictacted by project description.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}194}]:} \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+          
+          \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+          \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+          \PY{k+kn}{import} \PY{n+nn}{tweepy}
+          \PY{k+kn}{import} \PY{n+nn}{requests} \PY{k}{as} \PY{n+nn}{rq}
+          \PY{k+kn}{import} \PY{n+nn}{time}
+          \PY{k+kn}{import} \PY{n+nn}{json}
+          
+          \PY{n}{pd}\PY{o}{.}\PY{n}{set\PYZus{}option}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{display.max\PYZus{}colwidth}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mi}{30}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsection{Gathering Data}\label{gathering-data}
+
+\paragraph{\texorpdfstring{Open DogRates Twitter Archive with
+\emph{Pandas}}{Open DogRates Twitter Archive with Pandas}}\label{open-dogrates-twitter-archive-with-pandas}
+
+This file was provided as-is. Open \emph{twitter-archive-enhanced.csv}
+with Pandas.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}195}]:} \PY{c+c1}{\PYZsh{} Specific Dtypes for columns and date columns to parse}
+          \PY{n}{archive\PYZus{}dtypes} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tweet\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{n+nb}{str}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{in\PYZus{}reply\PYZus{}to\PYZus{}status\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n+nb}{str}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{in\PYZus{}reply\PYZus{}to\PYZus{}user\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n+nb}{str}\PY{p}{,}
+                            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{retweeted\PYZus{}status\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n+nb}{str}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{retweeted\PYZus{}status\PYZus{}user\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n+nb}{str}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rating\PYZus{}numerator}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n+nb}{int}\PY{p}{,}
+                            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rating\PYZus{}denomenator}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n+nb}{int}\PY{p}{\PYZcb{}}
+          \PY{n}{archive\PYZus{}parse\PYZus{}dates} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{timestamp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{retweeted\PYZus{}status\PYZus{}timestamp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          
+          \PY{n}{archive\PYZus{}df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{twitter\PYZhy{}archive\PYZhy{}enhanced.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{dtype}\PY{o}{=}\PY{n}{archive\PYZus{}dtypes}\PY{p}{,} \PY{n}{parse\PYZus{}dates}\PY{o}{=}\PY{n}{archive\PYZus{}parse\PYZus{}dates}\PY{p}{)}
+          \PY{n}{archive\PYZus{}df}\PY{o}{.}\PY{n}{set\PYZus{}index}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tweet\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \paragraph{\texorpdfstring{Get Tweets with
+\emph{Tweepy}}{Get Tweets with Tweepy}}\label{get-tweets-with-tweepy}
+
+Download the detailed tweet data from Twitter using Tweepy. Save the
+data to \emph{tweet\_json.txt} once downloaded.
+
+If the file exists, open it locally to avoid redownloading. (The
+download takes approximately 30 minutes to complete due to API
+rate-limiting because extended tweets are not supported by the Tweepy
+bulk-download function.)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}196}]:} \PY{n}{retry\PYZus{}count} \PY{o}{=} \PY{l+m+mi}{0}
+          
+          \PY{k}{while} \PY{k+kc}{True}\PY{p}{:}
+              \PY{k}{try}\PY{p}{:}
+                  \PY{c+c1}{\PYZsh{} open tweet detailed tweet archive file saved locally}
+                  \PY{k}{with} \PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tweet\PYZus{}json.txt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{k}{as} \PY{n}{fr}\PY{p}{:}
+                      \PY{n}{tweets\PYZus{}df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{io}\PY{o}{.}\PY{n}{json}\PY{o}{.}\PY{n}{json\PYZus{}normalize}\PY{p}{(}
+                                  \PY{n}{json}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{n}{fr}\PY{p}{)}
+                               \PY{p}{)}
+                  \PY{k}{break}
+              
+              \PY{k}{except} \PY{n+ne}{FileNotFoundError} \PY{k}{as} \PY{n}{e}\PY{p}{:}
+                  \PY{c+c1}{\PYZsh{} list of tweets to download from the archive file}
+                  \PY{n}{tweet\PYZus{}ids} \PY{o}{=} \PY{n}{archive\PYZus{}df}\PY{o}{.}\PY{n}{tweet\PYZus{}id}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{tolist}\PY{p}{(}\PY{p}{)}
+                  \PY{n}{tweets} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          
+                  \PY{k}{for} \PY{n}{t} \PY{o+ow}{in} \PY{n}{tweet\PYZus{}ids}\PY{p}{:}
+                      \PY{k}{try}\PY{p}{:}
+                          \PY{c+c1}{\PYZsh{} Parsing Tweepy objects: https://stackoverflow.com/questions/27900451}
+                          
+                          \PY{n}{twitter\PYZus{}keys} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ConsumerAPIKey}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{k+kc}{None}\PY{p}{,}
+                                          \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ConsumerSecret}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{k+kc}{None}\PY{p}{,}
+                                          \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{AccessToken}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{k+kc}{None}\PY{p}{,}
+                                          \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{AccessTokenSecret}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{k+kc}{None}\PY{p}{\PYZcb{}}
+                          \PY{c+c1}{\PYZsh{} comment this out and insert values to twitter\PYZus{}keys above if using other Twitter API keys}
+                          \PY{n}{twitter\PYZus{}keys} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}json}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{twitterkeys.json}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{typ}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{series}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                          
+                          \PY{n}{twitter\PYZus{}auth} \PY{o}{=} \PY{n}{tweepy}\PY{o}{.}\PY{n}{OAuthHandler}\PY{p}{(}\PY{n}{twitter\PYZus{}keys}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ConsumerAPIKey}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{twitter\PYZus{}keys}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ConsumerSecret}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+                          \PY{n}{twitter\PYZus{}auth}\PY{o}{.}\PY{n}{set\PYZus{}access\PYZus{}token}\PY{p}{(}\PY{n}{twitter\PYZus{}keys}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{AccessToken}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{twitter\PYZus{}keys}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{AccessTokenSecret}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+                          \PY{n}{twitter} \PY{o}{=} \PY{n}{tweepy}\PY{o}{.}\PY{n}{API}\PY{p}{(}\PY{n}{twitter\PYZus{}auth}\PY{p}{,} \PY{n}{parser}\PY{o}{=}\PY{n}{tweepy}\PY{o}{.}\PY{n}{parsers}\PY{o}{.}\PY{n}{JSONParser}\PY{p}{(}\PY{p}{)}\PY{p}{,}
+                                               \PY{n}{wait\PYZus{}on\PYZus{}rate\PYZus{}limit}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,}
+                                               \PY{n}{wait\PYZus{}on\PYZus{}rate\PYZus{}limit\PYZus{}notify}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          
+                          \PY{c+c1}{\PYZsh{} get tweets one\PYZhy{}by\PYZhy{}one because tweepy.statuses\PYZus{}lookup doesn\PYZsq{}t support tweet\PYZus{}mode=extended}
+                          \PY{n}{tweets}\PY{o}{.}\PY{n}{append}\PY{p}{(}
+                              \PY{n}{twitter}\PY{o}{.}\PY{n}{get\PYZus{}status}\PY{p}{(}\PY{n}{t}\PY{p}{,} \PY{n}{tweet\PYZus{}mode}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{extended}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{include\PYZus{}entities}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{trim\PYZus{}user}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+                          \PY{p}{)}
+          
+                      \PY{k}{except} \PY{n}{tweepy}\PY{o}{.}\PY{n}{TweepError} \PY{k}{as} \PY{n}{te}\PY{p}{:}
+                          \PY{c+c1}{\PYZsh{}swallow \PYZsq{}status not found\PYZsq{} errors, raise all others}
+                          \PY{k}{if}\PY{p}{(}\PY{n}{te}\PY{o}{.}\PY{n}{api\PYZus{}code} \PY{o}{!=} \PY{l+m+mi}{144}\PY{p}{)}\PY{p}{:}
+                              \PY{k}{raise}
+          
+                      \PY{c+c1}{\PYZsh{}delay to reduce request rate; 15m limiting causes proxy timeout on intranet    }
+                      \PY{n}{time}\PY{o}{.}\PY{n}{sleep}\PY{p}{(}\PY{o}{.}\PY{l+m+mi}{2}\PY{p}{)}
+          
+                  \PY{c+c1}{\PYZsh{} write file to disk to avoid re\PYZhy{}downloading}
+                  \PY{k}{with} \PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tweet\PYZus{}json.txt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{w}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{k}{as} \PY{n}{fw}\PY{p}{:}
+                      \PY{n}{json}\PY{o}{.}\PY{n}{dump}\PY{p}{(}\PY{n}{tweets}\PY{p}{,} \PY{n}{fw}\PY{p}{)}
+                  
+                  \PY{c+c1}{\PYZsh{} if met maximum retries, raise an error}
+                  \PY{n}{retry\PYZus{}count} \PY{o}{=} \PY{n}{retry\PYZus{}count} \PY{o}{+} \PY{l+m+mi}{1}
+                  \PY{k}{if} \PY{n}{retry\PYZus{}count} \PY{o}{==} \PY{l+m+mi}{4}\PY{p}{:}
+                      \PY{k}{raise}
+\end{Verbatim}
+
+
+    \paragraph{\texorpdfstring{Download Image Predictions with
+\emph{Requests}}{Download Image Predictions with Requests}}\label{download-image-predictions-with-requests}
+
+Download the image predictions file using the Requests library. Save the
+file locally as \emph{image-predictions.tsv}. If the file was already
+downloaded, open it locally to avoid hitting the server for the same
+file many times.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}197}]:} \PY{n}{retry\PYZus{}count} \PY{o}{=} \PY{l+m+mi}{0}
+          
+          \PY{k}{while} \PY{k+kc}{True}\PY{p}{:}
+              \PY{k}{try}\PY{p}{:} 
+                  \PY{c+c1}{\PYZsh{} Open image prediction file saved locally}
+                  \PY{n}{images\PYZus{}df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{image\PYZhy{}predictions.tsv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{dtype}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tweet\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{n+nb}{str}\PY{p}{\PYZcb{}}\PY{p}{)}\PY{o}{.}\PY{n}{set\PYZus{}index}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tweet\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                  \PY{k}{break}
+              
+              \PY{k}{except} \PY{n+ne}{FileNotFoundError} \PY{k}{as} \PY{n}{e}\PY{p}{:}
+                  \PY{c+c1}{\PYZsh{} Use Requests library to download}
+                  \PY{n}{image\PYZus{}predictions\PYZus{}url} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{https://d17h27t6h515a5.cloudfront.net/topher/2017/August/599fd2ad\PYZus{}image\PYZhy{}predictions/image\PYZhy{}predictions.tsv}\PY{l+s+s1}{\PYZsq{}}
+          
+                  \PY{c+c1}{\PYZsh{} Save the file}
+                  \PY{k}{with} \PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{image\PYZhy{}predictions.tsv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{w}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{k}{as} \PY{n}{fr}\PY{p}{:}
+                      \PY{n}{r} \PY{o}{=} \PY{n}{rq}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{n}{image\PYZus{}predictions\PYZus{}url}\PY{p}{)}\PY{o}{.}\PY{n}{text}
+                      \PY{n}{fr}\PY{o}{.}\PY{n}{write}\PY{p}{(}\PY{n}{r}\PY{p}{)}
+                  
+                  \PY{c+c1}{\PYZsh{} if met maximum retries, raise an error}
+                  \PY{n}{retry\PYZus{}count} \PY{o}{=} \PY{n}{retry\PYZus{}count} \PY{o}{+} \PY{l+m+mi}{1}
+                  \PY{k}{if} \PY{n}{retry\PYZus{}count} \PY{o}{==} \PY{l+m+mi}{4}\PY{p}{:}
+                      \PY{k}{raise}
+\end{Verbatim}
+
+
+    \subsection{Assessing Data}\label{assessing-data}
+
+    \paragraph{Columns of Archive data}\label{columns-of-archive-data}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}198}]:} \PY{n}{archive\PYZus{}df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}198}]:}                    in\_reply\_to\_status\_id in\_reply\_to\_user\_id  \textbackslash{}
+          tweet\_id                                                       
+          892420643555336193                   NaN                 NaN   
+          892177421306343426                   NaN                 NaN   
+          891815181378084864                   NaN                 NaN   
+          891689557279858688                   NaN                 NaN   
+          891327558926688256                   NaN                 NaN   
+          
+                                       timestamp                         source  \textbackslash{}
+          tweet\_id                                                                
+          892420643555336193 2017-08-01 16:23:56  <a href="http://twitter.co{\ldots}   
+          892177421306343426 2017-08-01 00:17:27  <a href="http://twitter.co{\ldots}   
+          891815181378084864 2017-07-31 00:18:03  <a href="http://twitter.co{\ldots}   
+          891689557279858688 2017-07-30 15:58:51  <a href="http://twitter.co{\ldots}   
+          891327558926688256 2017-07-29 16:00:24  <a href="http://twitter.co{\ldots}   
+          
+                                                       text retweeted\_status\_id  \textbackslash{}
+          tweet\_id                                                                
+          892420643555336193  This is Phineas. He's a my{\ldots}                 NaN   
+          892177421306343426  This is Tilly. She's just {\ldots}                 NaN   
+          891815181378084864  This is Archie. He is a ra{\ldots}                 NaN   
+          891689557279858688  This is Darla. She commenc{\ldots}                 NaN   
+          891327558926688256  This is Franklin. He would{\ldots}                 NaN   
+          
+                             retweeted\_status\_user\_id retweeted\_status\_timestamp  \textbackslash{}
+          tweet\_id                                                                 
+          892420643555336193                      NaN                        NaT   
+          892177421306343426                      NaN                        NaT   
+          891815181378084864                      NaN                        NaT   
+          891689557279858688                      NaN                        NaT   
+          891327558926688256                      NaN                        NaT   
+          
+                                              expanded\_urls  rating\_numerator  \textbackslash{}
+          tweet\_id                                                              
+          892420643555336193  https://twitter.com/dog\_ra{\ldots}                13   
+          892177421306343426  https://twitter.com/dog\_ra{\ldots}                13   
+          891815181378084864  https://twitter.com/dog\_ra{\ldots}                12   
+          891689557279858688  https://twitter.com/dog\_ra{\ldots}                13   
+          891327558926688256  https://twitter.com/dog\_ra{\ldots}                12   
+          
+                              rating\_denominator      name doggo floofer pupper puppo  
+          tweet\_id                                                                     
+          892420643555336193                  10   Phineas  None    None   None  None  
+          892177421306343426                  10     Tilly  None    None   None  None  
+          891815181378084864                  10    Archie  None    None   None  None  
+          891689557279858688                  10     Darla  None    None   None  None  
+          891327558926688256                  10  Franklin  None    None   None  None  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}199}]:} \PY{n+nb}{list}\PY{p}{(}\PY{n}{archive\PYZus{}df}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}199}]:} ['in\_reply\_to\_status\_id',
+           'in\_reply\_to\_user\_id',
+           'timestamp',
+           'source',
+           'text',
+           'retweeted\_status\_id',
+           'retweeted\_status\_user\_id',
+           'retweeted\_status\_timestamp',
+           'expanded\_urls',
+           'rating\_numerator',
+           'rating\_denominator',
+           'name',
+           'doggo',
+           'floofer',
+           'pupper',
+           'puppo']
+\end{Verbatim}
+            
+    Several columns contain data not necessary for this analysis. I intend
+to remove them for clarity below. Slated for removal: -
+in\_reply\_to\_status\_id - in\_reply\_to\_user\_id - source -
+retweeted\_status\_user\_id - retweeted\_status\_timestamp
+
+    \paragraph{Rating Denominators}\label{rating-denominators}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}200}]:} \PY{n}{archive\PYZus{}df}\PY{o}{.}\PY{n}{rating\PYZus{}denominator}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{n}{sort}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}200}]:} 0         1
+          2         1
+          10     2333
+          16        1
+          20        2
+          40        1
+          50        3
+          70        1
+          80        2
+          90        1
+          110       1
+          120       1
+          130       1
+          150       1
+          170       1
+          7         1
+          11        3
+          15        1
+          Name: rating\_denominator, dtype: int64
+\end{Verbatim}
+            
+    Rating are almost exclusively out of 10. Ratings out of a multiple of 10
+tend to contain multiple dogs. Let's look in to the outlier rating
+denominators.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}201}]:} \PY{n}{c\PYZus{}denom} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{7}\PY{p}{,} \PY{l+m+mi}{11}\PY{p}{,} \PY{l+m+mi}{15}\PY{p}{,} \PY{l+m+mi}{16}\PY{p}{]}
+          \PY{n}{archive\PYZus{}df}\PY{p}{[}\PY{n}{archive\PYZus{}df}\PY{o}{.}\PY{n}{rating\PYZus{}numerator}\PY{o}{.}\PY{n}{isin}\PY{p}{(}\PY{n}{c\PYZus{}denom}\PY{p}{)}\PY{p}{]}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{text}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rating\PYZus{}numerator}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rating\PYZus{}denominator}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}201}]:}                                              text  rating\_numerator  \textbackslash{}
+          tweet\_id                                                              
+          880095782870896641  Please don't send in photo{\ldots}                11   
+          879050749262655488  This is Steven. He has tro{\ldots}                11   
+          878316110768087041  RT @dog\_rates: Meet Terran{\ldots}                11   
+          870804317367881728  Real funny guys. Sending i{\ldots}                11   
+          862722525377298433  This is Dave. He passed th{\ldots}                11   
+          854010172552949760  At first I thought this wa{\ldots}                11   
+          851591660324737024  Oh jeez u did me quite the{\ldots}                11   
+          850753642995093505  This is Kyle. He made a jo{\ldots}                11   
+          850145622816686080  This is Riley. He's making{\ldots}                11   
+          849336543269576704  At first I thought this wa{\ldots}                11   
+          848213670039564288  Jerry just apuppologized t{\ldots}                11   
+          847978865427394560  RT @dog\_rates: This is Cha{\ldots}                11   
+          847157206088847362  Meet Daisy. She's been pup{\ldots}                11   
+          847116187444137987  Unbelievable{\ldots} We. Only. {\ldots}                11   
+          846505985330044928  THIS WAS NOT HIS FAULT HE {\ldots}                11   
+          844580511645339650  This is Charlie. He wants {\ldots}                11   
+          843604394117681152  This is Hank. He's been ou{\ldots}                11   
+          838916489579200512  RT @KibaDva: I collected a{\ldots}                15   
+          838085839343206401  @bragg6of8 @Andy\_Pace\_ we {\ldots}                15   
+          836677758902222849  Say hello to Oliver. He's {\ldots}                11   
+          836648853927522308  RT @SchafeBacon2016: @dog\_{\ldots}                11   
+          835574547218894849  This is Eli. He works back{\ldots}                11   
+          835152434251116546  When you're so blinded by {\ldots}                 0   
+          834167344700198914  This is Sunshine. She does{\ldots}                11   
+          832369877331693569  This is Charlie. He fell a{\ldots}                11   
+          832088576586297345  @docmisterio account start{\ldots}                11   
+          829449946868879360  Here's a stressed doggo. H{\ldots}                11   
+          828011680017821696  Say hello to Brutus and Je{\ldots}                11   
+          826598799820865537  I was going to do 007/10, {\ldots}                 7   
+          826240494070030336  We only rate dogs. Please {\ldots}                11   
+          {\ldots}                                           {\ldots}               {\ldots}   
+          668614819948453888  Here is a horned dog. Much{\ldots}                 7   
+          668567822092664832  This is Marvin. He can tie{\ldots}                11   
+          668480044826800133  Say hello to DayZ. She is {\ldots}                11   
+          668286279830867968  Meet Rusty. Rusty's dreami{\ldots}                11   
+          668171859951755264  This is a Trans Siberian K{\ldots}                 7   
+          668142349051129856  This lil pup is Oliver. Ho{\ldots}                 2   
+          667886921285246976  This is Erik. He's fucken {\ldots}                11   
+          667878741721415682  This is Tedrick. He lives {\ldots}                 2   
+          667728196545200128  Meet Olive. He comes to sp{\ldots}                11   
+          667724302356258817  What a dog to start the da{\ldots}                 7   
+          667502640335572993  Say hello to Hall and Oate{\ldots}                11   
+          667491009379606528  Two dogs in this one. Both{\ldots}                 7   
+          667470559035432960  This is a northern Wahoo n{\ldots}                11   
+          667455448082227200  This is Reese and Twips. R{\ldots}                 7   
+          667453023279554560  Meet Cupcake. I would do u{\ldots}                11   
+          667405339315146752  This is Biden. Biden just {\ldots}                 7   
+          667200525029539841  This is Joshwa. He is a fu{\ldots}                11   
+          667160273090932737  This is Bradlay. He is a R{\ldots}                11   
+          667090893657276420  This is Clybe. He is an An{\ldots}                 7   
+          666983947667116034  This is a curly Ticonderog{\ldots}                11   
+          666786068205871104  Unfamiliar with this breed{\ldots}                 2   
+          666437273139982337  Here we see a lone northea{\ldots}                 7   
+          666428276349472768  Here we have an Austrian P{\ldots}                 7   
+          666411507551481857  This is quite the dog. Get{\ldots}                 2   
+          666407126856765440  This is a southern Vesuviu{\ldots}                 7   
+          666373753744588802  Those are sunglasses and a{\ldots}                11   
+          666273097616637952  Can take selfies 11/10 htt{\ldots}                11   
+          666102155909144576  Oh my. Here you are seeing{\ldots}                11   
+          666051853826850816  This is an odd dog. Hard o{\ldots}                 2   
+          666029285002620928  This is a western brown Mi{\ldots}                 7   
+          
+                              rating\_denominator  
+          tweet\_id                                
+          880095782870896641                  10  
+          879050749262655488                  10  
+          878316110768087041                  10  
+          870804317367881728                  10  
+          862722525377298433                  10  
+          854010172552949760                  10  
+          851591660324737024                  10  
+          850753642995093505                  10  
+          850145622816686080                  10  
+          849336543269576704                  10  
+          848213670039564288                  10  
+          847978865427394560                  10  
+          847157206088847362                  10  
+          847116187444137987                  10  
+          846505985330044928                  10  
+          844580511645339650                  10  
+          843604394117681152                  10  
+          838916489579200512                  10  
+          838085839343206401                  10  
+          836677758902222849                  10  
+          836648853927522308                  10  
+          835574547218894849                  10  
+          835152434251116546                  10  
+          834167344700198914                  10  
+          832369877331693569                  10  
+          832088576586297345                  15  
+          829449946868879360                  10  
+          828011680017821696                  10  
+          826598799820865537                  10  
+          826240494070030336                  10  
+          {\ldots}                                {\ldots}  
+          668614819948453888                  10  
+          668567822092664832                  10  
+          668480044826800133                  10  
+          668286279830867968                  10  
+          668171859951755264                  10  
+          668142349051129856                  10  
+          667886921285246976                  10  
+          667878741721415682                  10  
+          667728196545200128                  10  
+          667724302356258817                  10  
+          667502640335572993                  10  
+          667491009379606528                  10  
+          667470559035432960                  10  
+          667455448082227200                  10  
+          667453023279554560                  10  
+          667405339315146752                  10  
+          667200525029539841                  10  
+          667160273090932737                  10  
+          667090893657276420                  10  
+          666983947667116034                  10  
+          666786068205871104                  10  
+          666437273139982337                  10  
+          666428276349472768                  10  
+          666411507551481857                  10  
+          666407126856765440                  10  
+          666373753744588802                  10  
+          666273097616637952                  10  
+          666102155909144576                  10  
+          666051853826850816                  10  
+          666029285002620928                  10  
+          
+          [532 rows x 3 columns]
+\end{Verbatim}
+            
+    All of the above ratings appear to be incorrect and will be corrected in
+the cleaning section below.
+
+    \paragraph{Rating Numerators}\label{rating-numerators}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}202}]:} \PY{n}{archive\PYZus{}df}\PY{o}{.}\PY{n}{rating\PYZus{}numerator}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{n}{sort}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}202}]:} 0         2
+          2         9
+          4        17
+          6        32
+          8       102
+          10      461
+          12      558
+          14       54
+          20        1
+          24        1
+          26        1
+          44        1
+          50        1
+          60        1
+          80        1
+          84        1
+          88        1
+          144       1
+          182       1
+          204       1
+          420       2
+          666       1
+          960       1
+          1776      1
+          1         9
+          3        19
+          5        37
+          7        55
+          9       158
+          11      464
+          13      351
+          15        2
+          17        1
+          27        1
+          45        1
+          75        2
+          99        1
+          121       1
+          143       1
+          165       1
+          Name: rating\_numerator, dtype: int64
+\end{Verbatim}
+            
+    There are many more possible numerators, but a few stand out as outliers
+or non-conforming.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}203}]:} \PY{n}{c\PYZus{}numer} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{420}\PY{p}{,} \PY{l+m+mi}{666}\PY{p}{,} \PY{l+m+mi}{1776}\PY{p}{]}
+          \PY{n}{archive\PYZus{}df}\PY{p}{[}\PY{n}{archive\PYZus{}df}\PY{o}{.}\PY{n}{rating\PYZus{}numerator}\PY{o}{.}\PY{n}{isin}\PY{p}{(}\PY{n}{c\PYZus{}numer}\PY{p}{)}\PY{p}{]}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{text}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rating\PYZus{}numerator}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rating\PYZus{}denominator}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}203}]:}                                              text  rating\_numerator  \textbackslash{}
+          tweet\_id                                                              
+          855862651834028034  @dhmontgomery We also gave{\ldots}               420   
+          855860136149123072  @s8n You tried very hard t{\ldots}               666   
+          835152434251116546  When you're so blinded by {\ldots}                 0   
+          749981277374128128  This is Atticus. He's quit{\ldots}              1776   
+          746906459439529985  PUPDATE: can't see any. Ev{\ldots}                 0   
+          670842764863651840  After so many requests{\ldots} {\ldots}               420   
+          
+                              rating\_denominator  
+          tweet\_id                                
+          855862651834028034                  10  
+          855860136149123072                  10  
+          835152434251116546                  10  
+          749981277374128128                  10  
+          746906459439529985                  10  
+          670842764863651840                  10  
+\end{Verbatim}
+            
+    Since joke ratings seem valid for a humor account, the tweets that
+feature dogs will be kept for now. The Snoop Dogg tweet and tweets
+without dogs will be deleted.
+
+    \paragraph{Names}\label{names}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}204}]:} \PY{n}{archive\PYZus{}df}\PY{o}{.}\PY{n}{name}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}204}]:} None           745
+          a               55
+          Charlie         12
+          Lucy            11
+          Cooper          11
+          Oliver          11
+          Penny           10
+          Lola            10
+          Tucker          10
+          Winston          9
+          Bo               9
+          the              8
+          Sadie            8
+          Toby             7
+          Bailey           7
+          an               7
+          Daisy            7
+          Buddy            7
+          Jack             6
+          Milo             6
+          Dave             6
+          Bella            6
+          Koda             6
+          Leo              6
+          Oscar            6
+          Scout            6
+          Jax              6
+          Rusty            6
+          Stanley          6
+          Sunny            5
+                        {\ldots} 
+          Finnegus         1
+          Margo            1
+          Jomathan         1
+          Suki             1
+          Zuzu             1
+          Reptar           1
+          Cuddles          1
+          Maya             1
+          Cermet           1
+          Tom              1
+          Mitch            1
+          Tino             1
+          Millie           1
+          Gin              1
+          Diogi            1
+          Jazzy            1
+          Shakespeare      1
+          Pluto            1
+          Kane             1
+          Jordy            1
+          Obie             1
+          Angel            1
+          Hamrick          1
+          Leonidas         1
+          Willie           1
+          Sweet            1
+          Barry            1
+          Trevith          1
+          Stephanus        1
+          Brat             1
+          Name: name, Length: 957, dtype: int64
+\end{Verbatim}
+            
+    A large set of tweets have dogs named 'None'. Let's see if that's
+correct.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}205}]:} \PY{n}{archive\PYZus{}df}\PY{p}{[}\PY{n}{archive\PYZus{}df}\PY{o}{.}\PY{n}{name} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{None}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{sample}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{1210}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}205}]:}                     in\_reply\_to\_status\_id in\_reply\_to\_user\_id  \textbackslash{}
+          tweet\_id                                                        
+          867900495410671616                    NaN                 NaN   
+          681340665377193984  6.813394486558024e+17        4196983835.0   
+          686034024800862208                    NaN                 NaN   
+          714214115368108032                    NaN                 NaN   
+          800855607700029440                    NaN                 NaN   
+          677334615166730240                    NaN                 NaN   
+          684122891630342144                    NaN                 NaN   
+          692142790915014657  6.920419346894029e+17        4196983835.0   
+          776218204058357768                    NaN                 NaN   
+          829449946868879360                    NaN                 NaN   
+          691096613310316544                    NaN                 NaN   
+          674606911342424069  6.744688808997888e+17        4196983835.0   
+          670826280409919488                    NaN                 NaN   
+          666649482315059201                    NaN                 NaN   
+          756275833623502848                    NaN                 NaN   
+          678023323247357953  6.780211157180293e+17        4196983835.0   
+          798694562394996736                    NaN                 NaN   
+          759566828574212096                    NaN                 NaN   
+          692752401762250755                    NaN                 NaN   
+          675432746517426176                    NaN                 NaN   
+          
+                                       timestamp                         source  \textbackslash{}
+          tweet\_id                                                                
+          867900495410671616 2017-05-26 00:29:37  <a href="http://twitter.co{\ldots}   
+          681340665377193984 2015-12-28 05:07:27  <a href="http://twitter.co{\ldots}   
+          686034024800862208 2016-01-10 03:57:12  <a href="http://twitter.co{\ldots}   
+          714214115368108032 2016-03-27 22:14:49  <a href="http://twitter.co{\ldots}   
+          800855607700029440 2016-11-22 00:17:10  <a href="http://twitter.co{\ldots}   
+          677334615166730240 2015-12-17 03:48:51  <a href="http://twitter.co{\ldots}   
+          684122891630342144 2016-01-04 21:23:02  <a href="http://twitter.co{\ldots}   
+          692142790915014657 2016-01-27 00:31:15  <a href="http://twitter.co{\ldots}   
+          776218204058357768 2016-09-15 00:36:55  <a href="http://twitter.co{\ldots}   
+          829449946868879360 2017-02-08 22:00:52  <a href="http://twitter.co{\ldots}   
+          691096613310316544 2016-01-24 03:14:07  <a href="http://twitter.co{\ldots}   
+          674606911342424069 2015-12-09 15:09:55  <a href="http://twitter.co{\ldots}   
+          670826280409919488 2015-11-29 04:47:03  <a href="http://twitter.co{\ldots}   
+          666649482315059201 2015-11-17 16:09:56  <a href="http://twitter.co{\ldots}   
+          756275833623502848 2016-07-21 23:53:04  <a href="http://twitter.co{\ldots}   
+          678023323247357953 2015-12-19 01:25:31  <a href="http://twitter.co{\ldots}   
+          798694562394996736 2016-11-16 01:09:57  <a href="http://twitter.co{\ldots}   
+          759566828574212096 2016-07-31 01:50:18  <a href="http://twitter.co{\ldots}   
+          692752401762250755 2016-01-28 16:53:37  <a href="http://twitter.co{\ldots}   
+          675432746517426176 2015-12-11 21:51:30  <a href="http://twitter.co{\ldots}   
+          
+                                                       text    retweeted\_status\_id  \textbackslash{}
+          tweet\_id                                                                   
+          867900495410671616  Unbelievable. We only rate{\ldots}                    NaN   
+          681340665377193984  I've been told there's a s{\ldots}                    NaN   
+          686034024800862208  Your fav crew is back and {\ldots}                    NaN   
+          714214115368108032  Happy Easter from the squa{\ldots}                    NaN   
+          800855607700029440  RT @Lin\_Manuel: 11/10 woul{\ldots}  8.008540229702861e+17   
+          677334615166730240  This dog gave up mid jump{\ldots}                    NaN   
+          684122891630342144  Heartwarming scene of two {\ldots}                    NaN   
+          692142790915014657  These are some pictures of{\ldots}                    NaN   
+          776218204058357768  Atlas rolled around in som{\ldots}                    NaN   
+          829449946868879360  Here's a stressed doggo. H{\ldots}                    NaN   
+          691096613310316544  Here we see one dog giving{\ldots}                    NaN   
+          674606911342424069  The 13/10 also takes into {\ldots}                    NaN   
+          670826280409919488  Scary dog here. Too many l{\ldots}                    NaN   
+          666649482315059201  Cool dog. Enjoys couch. Lo{\ldots}                    NaN   
+          756275833623502848  When ur older siblings get{\ldots}                    NaN   
+          678023323247357953  After getting lost in Rees{\ldots}                    NaN   
+          798694562394996736  RT @dog\_rates: I'm not sur{\ldots}  7.012147008817562e+17   
+          759566828574212096  RT @dog\_rates: This{\ldots} is {\ldots}  7.395440793195889e+17   
+          692752401762250755  "Hello yes could I get one{\ldots}                    NaN   
+          675432746517426176  Happy Friday. Here's some {\ldots}                    NaN   
+          
+                             retweeted\_status\_user\_id retweeted\_status\_timestamp  \textbackslash{}
+          tweet\_id                                                                 
+          867900495410671616                      NaN                        NaT   
+          681340665377193984                      NaN                        NaT   
+          686034024800862208                      NaN                        NaT   
+          714214115368108032                      NaN                        NaT   
+          800855607700029440               79923701.0        2016-11-22 00:10:52   
+          677334615166730240                      NaN                        NaT   
+          684122891630342144                      NaN                        NaT   
+          692142790915014657                      NaN                        NaT   
+          776218204058357768                      NaN                        NaT   
+          829449946868879360                      NaN                        NaT   
+          691096613310316544                      NaN                        NaT   
+          674606911342424069                      NaN                        NaT   
+          670826280409919488                      NaN                        NaT   
+          666649482315059201                      NaN                        NaT   
+          756275833623502848                      NaN                        NaT   
+          678023323247357953                      NaN                        NaT   
+          798694562394996736             4196983835.0        2016-02-21 01:19:47   
+          759566828574212096             4196983835.0        2016-06-05 19:47:03   
+          692752401762250755                      NaN                        NaT   
+          675432746517426176                      NaN                        NaT   
+          
+                                              expanded\_urls  rating\_numerator  \textbackslash{}
+          tweet\_id                                                              
+          867900495410671616  https://twitter.com/dog\_ra{\ldots}                12   
+          681340665377193984                            NaN                 5   
+          686034024800862208  https://twitter.com/dog\_ra{\ldots}                12   
+          714214115368108032  https://twitter.com/dog\_ra{\ldots}                13   
+          800855607700029440  https://twitter.com/little{\ldots}                11   
+          677334615166730240  https://twitter.com/dog\_ra{\ldots}                 9   
+          684122891630342144  https://twitter.com/dog\_ra{\ldots}                11   
+          692142790915014657  https://twitter.com/dog\_ra{\ldots}                13   
+          776218204058357768  https://twitter.com/dog\_ra{\ldots}                13   
+          829449946868879360  https://twitter.com/dog\_ra{\ldots}                11   
+          691096613310316544  https://twitter.com/dog\_ra{\ldots}                11   
+          674606911342424069                            NaN                13   
+          670826280409919488  https://twitter.com/dog\_ra{\ldots}                 2   
+          666649482315059201  https://twitter.com/dog\_ra{\ldots}                 4   
+          756275833623502848  https://twitter.com/dog\_ra{\ldots}                10   
+          678023323247357953                            NaN                13   
+          798694562394996736  https://twitter.com/dog\_ra{\ldots}                12   
+          759566828574212096  https://twitter.com/dog\_ra{\ldots}                10   
+          692752401762250755  https://twitter.com/dog\_ra{\ldots}                13   
+          675432746517426176  https://twitter.com/dog\_ra{\ldots}                12   
+          
+                              rating\_denominator  name  doggo  floofer  pupper  puppo  
+          tweet\_id                                                                     
+          867900495410671616                  10  None   None     None    None   None  
+          681340665377193984                  10  None   None     None    None   None  
+          686034024800862208                  10  None   None     None    None   None  
+          714214115368108032                  10  None   None     None    None   None  
+          800855607700029440                  10  None   None     None    None   None  
+          677334615166730240                  10  None   None     None    None   None  
+          684122891630342144                  10  None   None     None    None   None  
+          692142790915014657                  10  None   None     None    None   None  
+          776218204058357768                  10  None   None  floofer    None   None  
+          829449946868879360                  10  None  doggo     None    None   None  
+          691096613310316544                  10  None   None     None    None   None  
+          674606911342424069                  10  None   None     None    None   None  
+          670826280409919488                  10  None   None     None    None   None  
+          666649482315059201                  10  None   None     None    None   None  
+          756275833623502848                  10  None   None     None    None  puppo  
+          678023323247357953                  10  None   None     None    None   None  
+          798694562394996736                  10  None   None     None    None   None  
+          759566828574212096                  10  None   None     None    None   None  
+          692752401762250755                  10  None   None     None  pupper   None  
+          675432746517426176                  10  None   None     None    None   None  
+\end{Verbatim}
+            
+    A random sample indicates that these tweets do, in fact, lack names. The
+first value counts also indicate that when the name is entirely lower
+case, it tends to be a standard word that was interpreted as a name.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}206}]:} \PY{n}{archive\PYZus{}df}\PY{p}{[}\PY{n}{archive\PYZus{}df}\PY{o}{.}\PY{n}{name}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{islower}\PY{p}{(}\PY{p}{)}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}206}]:}                    in\_reply\_to\_status\_id in\_reply\_to\_user\_id  \textbackslash{}
+          tweet\_id                                                       
+          887517139158093824                   NaN                 NaN   
+          881536004380872706                   NaN                 NaN   
+          869988702071779329                   NaN                 NaN   
+          859196978902773760                   NaN                 NaN   
+          855459453768019968                   NaN                 NaN   
+          832645525019123713                   NaN                 NaN   
+          828650029636317184                   NaN                 NaN   
+          806219024703037440                   NaN                 NaN   
+          792913359805018113                   NaN                 NaN   
+          788552643979468800                   NaN                 NaN   
+          778396591732486144                   NaN                 NaN   
+          776249906839351296                   NaN                 NaN   
+          772581559778025472                   NaN                 NaN   
+          770655142660169732                   NaN                 NaN   
+          770093767776997377                   NaN                 NaN   
+          765395769549590528                   NaN                 NaN   
+          755206590534418437                   NaN                 NaN   
+          748977405889503236                   NaN                 NaN   
+          748692773788876800                   NaN                 NaN   
+          748575535303884801                   NaN                 NaN   
+          747885874273214464                   NaN                 NaN   
+          747816857231626240                   NaN                 NaN   
+          746872823977771008                   NaN                 NaN   
+          746369468511756288                   NaN                 NaN   
+          745422732645535745                   NaN                 NaN   
+          744223424764059648                   NaN                 NaN   
+          743222593470234624                   NaN                 NaN   
+          741067306818797568                   NaN                 NaN   
+          740214038584557568                   NaN                 NaN   
+          736392552031657984                   NaN                 NaN   
+          {\ldots}                                  {\ldots}                 {\ldots}   
+          668955713004314625                   NaN                 NaN   
+          668815180734689280                   NaN                 NaN   
+          668636665813057536                   NaN                 NaN   
+          668614819948453888                   NaN                 NaN   
+          668587383441514497                   NaN                 NaN   
+          668507509523615744                   NaN                 NaN   
+          668466899341221888                   NaN                 NaN   
+          668171859951755264                   NaN                 NaN   
+          667861340749471744                   NaN                 NaN   
+          667773195014021121                   NaN                 NaN   
+          667538891197542400                   NaN                 NaN   
+          667470559035432960                   NaN                 NaN   
+          667177989038297088                   NaN                 NaN   
+          666983947667116034                   NaN                 NaN   
+          666781792255496192                   NaN                 NaN   
+          666701168228331520                   NaN                 NaN   
+          666411507551481857                   NaN                 NaN   
+          666407126856765440                   NaN                 NaN   
+          666337882303524864                   NaN                 NaN   
+          666293911632134144                   NaN                 NaN   
+          666287406224695296                   NaN                 NaN   
+          666063827256086533                   NaN                 NaN   
+          666058600524156928                   NaN                 NaN   
+          666057090499244032                   NaN                 NaN   
+          666055525042405380                   NaN                 NaN   
+          666051853826850816                   NaN                 NaN   
+          666050758794694657                   NaN                 NaN   
+          666044226329800704                   NaN                 NaN   
+          666033412701032449                   NaN                 NaN   
+          666029285002620928                   NaN                 NaN   
+          
+                                       timestamp                         source  \textbackslash{}
+          tweet\_id                                                                
+          887517139158093824 2017-07-19 03:39:09  <a href="http://twitter.co{\ldots}   
+          881536004380872706 2017-07-02 15:32:16  <a href="http://twitter.co{\ldots}   
+          869988702071779329 2017-05-31 18:47:24  <a href="http://twitter.co{\ldots}   
+          859196978902773760 2017-05-02 00:04:57  <a href="http://twitter.co{\ldots}   
+          855459453768019968 2017-04-21 16:33:22  <a href="http://twitter.co{\ldots}   
+          832645525019123713 2017-02-17 17:38:57  <a href="http://twitter.co{\ldots}   
+          828650029636317184 2017-02-06 17:02:17  <a href="http://twitter.co{\ldots}   
+          806219024703037440 2016-12-06 19:29:28  <a href="http://twitter.co{\ldots}   
+          792913359805018113 2016-10-31 02:17:31  <a href="http://twitter.co{\ldots}   
+          788552643979468800 2016-10-19 01:29:35  <a href="http://twitter.co{\ldots}   
+          778396591732486144 2016-09-21 00:53:04  <a href="http://twitter.co{\ldots}   
+          776249906839351296 2016-09-15 02:42:54  <a href="http://twitter.co{\ldots}   
+          772581559778025472 2016-09-04 23:46:12  <a href="http://twitter.co{\ldots}   
+          770655142660169732 2016-08-30 16:11:18  <a href="http://twitter.co{\ldots}   
+          770093767776997377 2016-08-29 03:00:36  <a href="http://twitter.co{\ldots}   
+          765395769549590528 2016-08-16 03:52:26  <a href="http://twitter.co{\ldots}   
+          755206590534418437 2016-07-19 01:04:16  <a href="http://twitter.co{\ldots}   
+          748977405889503236 2016-07-01 20:31:43  <a href="http://twitter.co{\ldots}   
+          748692773788876800 2016-07-01 01:40:41  <a href="http://twitter.co{\ldots}   
+          748575535303884801 2016-06-30 17:54:50  <a href="http://twitter.co{\ldots}   
+          747885874273214464 2016-06-28 20:14:22  <a href="http://twitter.co{\ldots}   
+          747816857231626240 2016-06-28 15:40:07  <a href="http://twitter.co{\ldots}   
+          746872823977771008 2016-06-26 01:08:52  <a href="http://twitter.co{\ldots}   
+          746369468511756288 2016-06-24 15:48:42  <a href="http://twitter.co{\ldots}   
+          745422732645535745 2016-06-22 01:06:43  <a href="http://twitter.co{\ldots}   
+          744223424764059648 2016-06-18 17:41:06  <a href="http://twitter.co{\ldots}   
+          743222593470234624 2016-06-15 23:24:09  <a href="http://twitter.co{\ldots}   
+          741067306818797568 2016-06-10 00:39:48  <a href="http://twitter.co{\ldots}   
+          740214038584557568 2016-06-07 16:09:13  <a href="http://twitter.co{\ldots}   
+          736392552031657984 2016-05-28 03:04:00  <a href="http://vine.co" r{\ldots}   
+          {\ldots}                                {\ldots}                            {\ldots}   
+          668955713004314625 2015-11-24 00:54:05  <a href="http://twitter.co{\ldots}   
+          668815180734689280 2015-11-23 15:35:39  <a href="http://twitter.co{\ldots}   
+          668636665813057536 2015-11-23 03:46:18  <a href="http://twitter.co{\ldots}   
+          668614819948453888 2015-11-23 02:19:29  <a href="http://twitter.co{\ldots}   
+          668587383441514497 2015-11-23 00:30:28  <a href="http://vine.co" r{\ldots}   
+          668507509523615744 2015-11-22 19:13:05  <a href="http://twitter.co{\ldots}   
+          668466899341221888 2015-11-22 16:31:42  <a href="http://twitter.co{\ldots}   
+          668171859951755264 2015-11-21 20:59:20  <a href="http://twitter.co{\ldots}   
+          667861340749471744 2015-11-21 00:25:26  <a href="http://twitter.co{\ldots}   
+          667773195014021121 2015-11-20 18:35:10  <a href="http://twitter.co{\ldots}   
+          667538891197542400 2015-11-20 03:04:08  <a href="http://twitter.co{\ldots}   
+          667470559035432960 2015-11-19 22:32:36  <a href="http://twitter.co{\ldots}   
+          667177989038297088 2015-11-19 03:10:02  <a href="http://twitter.co{\ldots}   
+          666983947667116034 2015-11-18 14:18:59  <a href="http://twitter.co{\ldots}   
+          666781792255496192 2015-11-18 00:55:42  <a href="http://twitter.co{\ldots}   
+          666701168228331520 2015-11-17 19:35:19  <a href="http://twitter.co{\ldots}   
+          666411507551481857 2015-11-17 00:24:19  <a href="http://twitter.co{\ldots}   
+          666407126856765440 2015-11-17 00:06:54  <a href="http://twitter.co{\ldots}   
+          666337882303524864 2015-11-16 19:31:45  <a href="http://twitter.co{\ldots}   
+          666293911632134144 2015-11-16 16:37:02  <a href="http://twitter.co{\ldots}   
+          666287406224695296 2015-11-16 16:11:11  <a href="http://twitter.co{\ldots}   
+          666063827256086533 2015-11-16 01:22:45  <a href="http://twitter.co{\ldots}   
+          666058600524156928 2015-11-16 01:01:59  <a href="http://twitter.co{\ldots}   
+          666057090499244032 2015-11-16 00:55:59  <a href="http://twitter.co{\ldots}   
+          666055525042405380 2015-11-16 00:49:46  <a href="http://twitter.co{\ldots}   
+          666051853826850816 2015-11-16 00:35:11  <a href="http://twitter.co{\ldots}   
+          666050758794694657 2015-11-16 00:30:50  <a href="http://twitter.co{\ldots}   
+          666044226329800704 2015-11-16 00:04:52  <a href="http://twitter.co{\ldots}   
+          666033412701032449 2015-11-15 23:21:54  <a href="http://twitter.co{\ldots}   
+          666029285002620928 2015-11-15 23:05:30  <a href="http://twitter.co{\ldots}   
+          
+                                                       text    retweeted\_status\_id  \textbackslash{}
+          tweet\_id                                                                   
+          887517139158093824  I've yet to rate a Venezue{\ldots}                    NaN   
+          881536004380872706  Here is a pupper approachi{\ldots}                    NaN   
+          869988702071779329  RT @dog\_rates: We only rat{\ldots}  8.591969789027738e+17   
+          859196978902773760  We only rate dogs. This is{\ldots}                    NaN   
+          855459453768019968  Guys, we only rate dogs. T{\ldots}                    NaN   
+          832645525019123713  There's going to be a dog {\ldots}                    NaN   
+          828650029636317184  Occasionally, we're sent f{\ldots}                    NaN   
+          806219024703037440  We only rate dogs. Please {\ldots}                    NaN   
+          792913359805018113  Here is a perfect example {\ldots}                    NaN   
+          788552643979468800  RT @dog\_rates: Say hello t{\ldots}   7.36392552031658e+17   
+          778396591732486144  RT @dog\_rates: This is an {\ldots}  7.030419496500347e+17   
+          776249906839351296  RT @dog\_rates: We only rat{\ldots}  7.007477885150208e+17   
+          772581559778025472  Guys this is getting so ou{\ldots}                    NaN   
+          770655142660169732  We only rate dogs. Pls sto{\ldots}                    NaN   
+          770093767776997377  RT @dog\_rates: This is jus{\ldots}  7.410673068187976e+17   
+          765395769549590528  This is my dog. Her name i{\ldots}                    NaN   
+          755206590534418437  This is one of the most in{\ldots}                    NaN   
+          748977405889503236  What jokester sent in a pi{\ldots}                    NaN   
+          748692773788876800  That is Quizno. This is hi{\ldots}                    NaN   
+          748575535303884801  This is one of the most re{\ldots}                    NaN   
+          747885874273214464  This is a mighty rare blue{\ldots}                    NaN   
+          747816857231626240  Viewer discretion is advis{\ldots}                    NaN   
+          746872823977771008  This is a carrot. We only {\ldots}                    NaN   
+          746369468511756288  This is an Iraqi Speed Kan{\ldots}                    NaN   
+          745422732645535745  We only rate dogs. Pls sto{\ldots}                    NaN   
+          744223424764059648  This is actually a pupper {\ldots}                    NaN   
+          743222593470234624  This is a very rare Great {\ldots}                    NaN   
+          741067306818797568  This is just downright pre{\ldots}                    NaN   
+          740214038584557568  This is getting incredibly{\ldots}                    NaN   
+          736392552031657984  Say hello to mad pupper. Y{\ldots}                    NaN   
+          {\ldots}                                           {\ldots}                    {\ldots}   
+          668955713004314625  This is a Slovakian Helter{\ldots}                    NaN   
+          668815180734689280  This is a wild Toblerone f{\ldots}                    NaN   
+          668636665813057536  This is an Irish Rigatoni {\ldots}                    NaN   
+          668614819948453888  Here is a horned dog. Much{\ldots}                    NaN   
+          668587383441514497  Never forget this vine. Yo{\ldots}                    NaN   
+          668507509523615744  This is a Birmingham Quagm{\ldots}                    NaN   
+          668466899341221888  Here is a mother dog carin{\ldots}                    NaN   
+          668171859951755264  This is a Trans Siberian K{\ldots}                    NaN   
+          667861340749471744  This is a Shotokon Macadam{\ldots}                    NaN   
+          667773195014021121  This is a rare Hungarian P{\ldots}                    NaN   
+          667538891197542400  This is a southwest Corian{\ldots}                    NaN   
+          667470559035432960  This is a northern Wahoo n{\ldots}                    NaN   
+          667177989038297088  This is a Dasani Kingfishe{\ldots}                    NaN   
+          666983947667116034  This is a curly Ticonderog{\ldots}                    NaN   
+          666781792255496192  This is a purebred Bacardi{\ldots}                    NaN   
+          666701168228331520  This is a golden Buckminst{\ldots}                    NaN   
+          666411507551481857  This is quite the dog. Get{\ldots}                    NaN   
+          666407126856765440  This is a southern Vesuviu{\ldots}                    NaN   
+          666337882303524864  This is an extremely rare {\ldots}                    NaN   
+          666293911632134144  This is a funny dog. Weird{\ldots}                    NaN   
+          666287406224695296  This is an Albanian 3 1/2 {\ldots}                    NaN   
+          666063827256086533  This is the happiest dog y{\ldots}                    NaN   
+          666058600524156928  Here is the Rand Paul of r{\ldots}                    NaN   
+          666057090499244032  My oh my. This is a rare b{\ldots}                    NaN   
+          666055525042405380  Here is a Siberian heavily{\ldots}                    NaN   
+          666051853826850816  This is an odd dog. Hard o{\ldots}                    NaN   
+          666050758794694657  This is a truly beautiful {\ldots}                    NaN   
+          666044226329800704  This is a purebred Piers M{\ldots}                    NaN   
+          666033412701032449  Here is a very happy pup. {\ldots}                    NaN   
+          666029285002620928  This is a western brown Mi{\ldots}                    NaN   
+          
+                             retweeted\_status\_user\_id retweeted\_status\_timestamp  \textbackslash{}
+          tweet\_id                                                                 
+          887517139158093824                      NaN                        NaT   
+          881536004380872706                      NaN                        NaT   
+          869988702071779329             4196983835.0        2017-05-02 00:04:57   
+          859196978902773760                      NaN                        NaT   
+          855459453768019968                      NaN                        NaT   
+          832645525019123713                      NaN                        NaT   
+          828650029636317184                      NaN                        NaT   
+          806219024703037440                      NaN                        NaT   
+          792913359805018113                      NaN                        NaT   
+          788552643979468800             4196983835.0        2016-05-28 03:04:00   
+          778396591732486144             4196983835.0        2016-02-26 02:20:37   
+          776249906839351296             4196983835.0        2016-02-19 18:24:26   
+          772581559778025472                      NaN                        NaT   
+          770655142660169732                      NaN                        NaT   
+          770093767776997377             4196983835.0        2016-06-10 00:39:48   
+          765395769549590528                      NaN                        NaT   
+          755206590534418437                      NaN                        NaT   
+          748977405889503236                      NaN                        NaT   
+          748692773788876800                      NaN                        NaT   
+          748575535303884801                      NaN                        NaT   
+          747885874273214464                      NaN                        NaT   
+          747816857231626240                      NaN                        NaT   
+          746872823977771008                      NaN                        NaT   
+          746369468511756288                      NaN                        NaT   
+          745422732645535745                      NaN                        NaT   
+          744223424764059648                      NaN                        NaT   
+          743222593470234624                      NaN                        NaT   
+          741067306818797568                      NaN                        NaT   
+          740214038584557568                      NaN                        NaT   
+          736392552031657984                      NaN                        NaT   
+          {\ldots}                                     {\ldots}                        {\ldots}   
+          668955713004314625                      NaN                        NaT   
+          668815180734689280                      NaN                        NaT   
+          668636665813057536                      NaN                        NaT   
+          668614819948453888                      NaN                        NaT   
+          668587383441514497                      NaN                        NaT   
+          668507509523615744                      NaN                        NaT   
+          668466899341221888                      NaN                        NaT   
+          668171859951755264                      NaN                        NaT   
+          667861340749471744                      NaN                        NaT   
+          667773195014021121                      NaN                        NaT   
+          667538891197542400                      NaN                        NaT   
+          667470559035432960                      NaN                        NaT   
+          667177989038297088                      NaN                        NaT   
+          666983947667116034                      NaN                        NaT   
+          666781792255496192                      NaN                        NaT   
+          666701168228331520                      NaN                        NaT   
+          666411507551481857                      NaN                        NaT   
+          666407126856765440                      NaN                        NaT   
+          666337882303524864                      NaN                        NaT   
+          666293911632134144                      NaN                        NaT   
+          666287406224695296                      NaN                        NaT   
+          666063827256086533                      NaN                        NaT   
+          666058600524156928                      NaN                        NaT   
+          666057090499244032                      NaN                        NaT   
+          666055525042405380                      NaN                        NaT   
+          666051853826850816                      NaN                        NaT   
+          666050758794694657                      NaN                        NaT   
+          666044226329800704                      NaN                        NaT   
+          666033412701032449                      NaN                        NaT   
+          666029285002620928                      NaN                        NaT   
+          
+                                              expanded\_urls  rating\_numerator  \textbackslash{}
+          tweet\_id                                                              
+          887517139158093824  https://twitter.com/dog\_ra{\ldots}                14   
+          881536004380872706  https://twitter.com/dog\_ra{\ldots}                14   
+          869988702071779329  https://twitter.com/dog\_ra{\ldots}                12   
+          859196978902773760  https://twitter.com/dog\_ra{\ldots}                12   
+          855459453768019968  https://twitter.com/dog\_ra{\ldots}                12   
+          832645525019123713  http://us.blastingnews.com{\ldots}                10   
+          828650029636317184  https://twitter.com/dog\_ra{\ldots}                14   
+          806219024703037440  https://twitter.com/dog\_ra{\ldots}                11   
+          792913359805018113  https://twitter.com/dog\_ra{\ldots}                13   
+          788552643979468800  https://vine.co/v/iEggaEOi{\ldots}                13   
+          778396591732486144  https://twitter.com/dog\_ra{\ldots}                10   
+          776249906839351296  https://twitter.com/dog\_ra{\ldots}                11   
+          772581559778025472  https://twitter.com/dog\_ra{\ldots}                10   
+          770655142660169732  https://twitter.com/dog\_ra{\ldots}                11   
+          770093767776997377  https://twitter.com/dog\_ra{\ldots}                12   
+          765395769549590528  https://twitter.com/dog\_ra{\ldots}                13   
+          755206590534418437  https://twitter.com/dog\_ra{\ldots}                14   
+          748977405889503236  https://twitter.com/dog\_ra{\ldots}                10   
+          748692773788876800  https://twitter.com/dog\_ra{\ldots}                10   
+          748575535303884801  https://twitter.com/dog\_ra{\ldots}                 6   
+          747885874273214464  https://twitter.com/dog\_ra{\ldots}                 8   
+          747816857231626240  https://twitter.com/dog\_ra{\ldots}                 4   
+          746872823977771008  https://twitter.com/dog\_ra{\ldots}                11   
+          746369468511756288  https://twitter.com/dog\_ra{\ldots}                 9   
+          745422732645535745  https://twitter.com/dog\_ra{\ldots}                 9   
+          744223424764059648  https://twitter.com/strang{\ldots}                12   
+          743222593470234624  https://twitter.com/dog\_ra{\ldots}                12   
+          741067306818797568  https://twitter.com/dog\_ra{\ldots}                12   
+          740214038584557568  https://twitter.com/dog\_ra{\ldots}                10   
+          736392552031657984  https://vine.co/v/iEggaEOiLO3                13   
+          {\ldots}                                           {\ldots}               {\ldots}   
+          668955713004314625  https://twitter.com/dog\_ra{\ldots}                10   
+          668815180734689280  https://twitter.com/dog\_ra{\ldots}                 7   
+          668636665813057536  https://twitter.com/dog\_ra{\ldots}                10   
+          668614819948453888  https://twitter.com/dog\_ra{\ldots}                 7   
+          668587383441514497  https://vine.co/v/ea0OwvPTx9l                13   
+          668507509523615744  https://twitter.com/dog\_ra{\ldots}                10   
+          668466899341221888  https://twitter.com/dog\_ra{\ldots}                 4   
+          668171859951755264  https://twitter.com/dog\_ra{\ldots}                 7   
+          667861340749471744  https://twitter.com/dog\_ra{\ldots}                 9   
+          667773195014021121  https://twitter.com/dog\_ra{\ldots}                 8   
+          667538891197542400  https://twitter.com/dog\_ra{\ldots}                 9   
+          667470559035432960  https://twitter.com/dog\_ra{\ldots}                11   
+          667177989038297088  https://twitter.com/dog\_ra{\ldots}                 8   
+          666983947667116034  https://twitter.com/dog\_ra{\ldots}                11   
+          666781792255496192  https://twitter.com/dog\_ra{\ldots}                10   
+          666701168228331520  https://twitter.com/dog\_ra{\ldots}                 8   
+          666411507551481857  https://twitter.com/dog\_ra{\ldots}                 2   
+          666407126856765440  https://twitter.com/dog\_ra{\ldots}                 7   
+          666337882303524864  https://twitter.com/dog\_ra{\ldots}                 9   
+          666293911632134144  https://twitter.com/dog\_ra{\ldots}                 3   
+          666287406224695296  https://twitter.com/dog\_ra{\ldots}                 1   
+          666063827256086533  https://twitter.com/dog\_ra{\ldots}                10   
+          666058600524156928  https://twitter.com/dog\_ra{\ldots}                 8   
+          666057090499244032  https://twitter.com/dog\_ra{\ldots}                 9   
+          666055525042405380  https://twitter.com/dog\_ra{\ldots}                10   
+          666051853826850816  https://twitter.com/dog\_ra{\ldots}                 2   
+          666050758794694657  https://twitter.com/dog\_ra{\ldots}                10   
+          666044226329800704  https://twitter.com/dog\_ra{\ldots}                 6   
+          666033412701032449  https://twitter.com/dog\_ra{\ldots}                 9   
+          666029285002620928  https://twitter.com/dog\_ra{\ldots}                 7   
+          
+                              rating\_denominator        name  doggo floofer  pupper  \textbackslash{}
+          tweet\_id                                                                    
+          887517139158093824                  10        such   None    None    None   
+          881536004380872706                  10           a   None    None  pupper   
+          869988702071779329                  10       quite   None    None    None   
+          859196978902773760                  10       quite   None    None    None   
+          855459453768019968                  10       quite   None    None    None   
+          832645525019123713                  10         not   None    None    None   
+          828650029636317184                  10         one   None    None    None   
+          806219024703037440                  10  incredibly   None    None    None   
+          792913359805018113                  10           a   None    None    None   
+          788552643979468800                  10         mad   None    None  pupper   
+          778396591732486144                  10          an   None    None    None   
+          776249906839351296                  10        very   None    None    None   
+          772581559778025472                  10           a   None    None    None   
+          770655142660169732                  10        very   None    None    None   
+          770093767776997377                  10        just  doggo    None  pupper   
+          765395769549590528                  10          my   None    None    None   
+          755206590534418437                  10         one  doggo    None    None   
+          748977405889503236                  10         not   None    None    None   
+          748692773788876800                  10         his  doggo    None    None   
+          748575535303884801                  10         one   None    None    None   
+          747885874273214464                  10           a   None    None    None   
+          747816857231626240                  10           a   None    None    None   
+          746872823977771008                  10           a   None    None    None   
+          746369468511756288                  10          an   None    None    None   
+          745422732645535745                  10        very   None    None    None   
+          744223424764059648                  10    actually   None    None  pupper   
+          743222593470234624                  10           a   None    None  pupper   
+          741067306818797568                  10        just  doggo    None  pupper   
+          740214038584557568                  10     getting   None    None    None   
+          736392552031657984                  10         mad   None    None  pupper   
+          {\ldots}                                {\ldots}         {\ldots}    {\ldots}     {\ldots}     {\ldots}   
+          668955713004314625                  10           a   None    None    None   
+          668815180734689280                  10           a   None    None    None   
+          668636665813057536                  10          an   None    None    None   
+          668614819948453888                  10           a   None    None    None   
+          668587383441514497                  10         the   None    None    None   
+          668507509523615744                  10           a   None    None    None   
+          668466899341221888                  10           a   None    None    None   
+          668171859951755264                  10           a   None    None    None   
+          667861340749471744                  10           a   None    None    None   
+          667773195014021121                  10           a   None    None    None   
+          667538891197542400                  10           a   None    None    None   
+          667470559035432960                  10           a   None    None    None   
+          667177989038297088                  10           a   None    None    None   
+          666983947667116034                  10           a   None    None    None   
+          666781792255496192                  10           a   None    None    None   
+          666701168228331520                  10           a   None    None    None   
+          666411507551481857                  10       quite   None    None    None   
+          666407126856765440                  10           a   None    None    None   
+          666337882303524864                  10          an   None    None    None   
+          666293911632134144                  10           a   None    None    None   
+          666287406224695296                   2          an   None    None    None   
+          666063827256086533                  10         the   None    None    None   
+          666058600524156928                  10         the   None    None    None   
+          666057090499244032                  10           a   None    None    None   
+          666055525042405380                  10           a   None    None    None   
+          666051853826850816                  10          an   None    None    None   
+          666050758794694657                  10           a   None    None    None   
+          666044226329800704                  10           a   None    None    None   
+          666033412701032449                  10           a   None    None    None   
+          666029285002620928                  10           a   None    None    None   
+          
+                             puppo  
+          tweet\_id                  
+          887517139158093824  None  
+          881536004380872706  None  
+          869988702071779329  None  
+          859196978902773760  None  
+          855459453768019968  None  
+          832645525019123713  None  
+          828650029636317184  None  
+          806219024703037440  None  
+          792913359805018113  None  
+          788552643979468800  None  
+          778396591732486144  None  
+          776249906839351296  None  
+          772581559778025472  None  
+          770655142660169732  None  
+          770093767776997377  None  
+          765395769549590528  None  
+          755206590534418437  None  
+          748977405889503236  None  
+          748692773788876800  None  
+          748575535303884801  None  
+          747885874273214464  None  
+          747816857231626240  None  
+          746872823977771008  None  
+          746369468511756288  None  
+          745422732645535745  None  
+          744223424764059648  None  
+          743222593470234624  None  
+          741067306818797568  None  
+          740214038584557568  None  
+          736392552031657984  None  
+          {\ldots}                  {\ldots}  
+          668955713004314625  None  
+          668815180734689280  None  
+          668636665813057536  None  
+          668614819948453888  None  
+          668587383441514497  None  
+          668507509523615744  None  
+          668466899341221888  None  
+          668171859951755264  None  
+          667861340749471744  None  
+          667773195014021121  None  
+          667538891197542400  None  
+          667470559035432960  None  
+          667177989038297088  None  
+          666983947667116034  None  
+          666781792255496192  None  
+          666701168228331520  None  
+          666411507551481857  None  
+          666407126856765440  None  
+          666337882303524864  None  
+          666293911632134144  None  
+          666287406224695296  None  
+          666063827256086533  None  
+          666058600524156928  None  
+          666057090499244032  None  
+          666055525042405380  None  
+          666051853826850816  None  
+          666050758794694657  None  
+          666044226329800704  None  
+          666033412701032449  None  
+          666029285002620928  None  
+          
+          [109 rows x 16 columns]
+\end{Verbatim}
+            
+    Names that are lower case appear to typically belong to
+\emph{descriptions} of the dog. Those, and names that are None, will be
+converted to blanks in the next section.
+
+    \paragraph{Columns of Tweets Download}\label{columns-of-tweets-download}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}207}]:} \PY{n}{tweets\PYZus{}df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}207}]:}   contributors coordinates                     created\_at display\_text\_range  \textbackslash{}
+          0         None        None  Tue Aug 01 16:23:56 +0000 {\ldots}            [0, 85]   
+          1         None        None  Tue Aug 01 00:17:27 +0000 {\ldots}           [0, 138]   
+          2         None        None  Mon Jul 31 00:18:03 +0000 {\ldots}           [0, 121]   
+          3         None        None  Sun Jul 30 15:58:51 +0000 {\ldots}            [0, 79]   
+          4         None        None  Sat Jul 29 16:00:24 +0000 {\ldots}           [0, 138]   
+          
+                         entities.hashtags                 entities.media  \textbackslash{}
+          0                             []  [\{'expanded\_url': 'https:/{\ldots}   
+          1                             []  [\{'expanded\_url': 'https:/{\ldots}   
+          2                             []  [\{'expanded\_url': 'https:/{\ldots}   
+          3                             []  [\{'expanded\_url': 'https:/{\ldots}   
+          4  [\{'text': 'BarkWeek', 'ind{\ldots}  [\{'expanded\_url': 'https:/{\ldots}   
+          
+            entities.symbols entities.urls entities.user\_mentions  \textbackslash{}
+          0               []            []                     []   
+          1               []            []                     []   
+          2               []            []                     []   
+          3               []            []                     []   
+          4               []            []                     []   
+          
+                   extended\_entities.media     {\ldots}       retweeted\_status.retweet\_count  \textbackslash{}
+          0  [\{'expanded\_url': 'https:/{\ldots}     {\ldots}                                 NaN    
+          1  [\{'expanded\_url': 'https:/{\ldots}     {\ldots}                                 NaN    
+          2  [\{'expanded\_url': 'https:/{\ldots}     {\ldots}                                 NaN    
+          3  [\{'expanded\_url': 'https:/{\ldots}     {\ldots}                                 NaN    
+          4  [\{'expanded\_url': 'https:/{\ldots}     {\ldots}                                 NaN    
+          
+             retweeted\_status.retweeted retweeted\_status.source  \textbackslash{}
+          0                         NaN                     NaN   
+          1                         NaN                     NaN   
+          2                         NaN                     NaN   
+          3                         NaN                     NaN   
+          4                         NaN                     NaN   
+          
+            retweeted\_status.truncated  retweeted\_status.user.id  \textbackslash{}
+          0                        NaN                       NaN   
+          1                        NaN                       NaN   
+          2                        NaN                       NaN   
+          3                        NaN                       NaN   
+          4                        NaN                       NaN   
+          
+            retweeted\_status.user.id\_str                         source  truncated  \textbackslash{}
+          0                          NaN  <a href="http://twitter.co{\ldots}      False   
+          1                          NaN  <a href="http://twitter.co{\ldots}      False   
+          2                          NaN  <a href="http://twitter.co{\ldots}      False   
+          3                          NaN  <a href="http://twitter.co{\ldots}      False   
+          4                          NaN  <a href="http://twitter.co{\ldots}      False   
+          
+                user.id  user.id\_str  
+          0  4196983835   4196983835  
+          1  4196983835   4196983835  
+          2  4196983835   4196983835  
+          3  4196983835   4196983835  
+          4  4196983835   4196983835  
+          
+          [5 rows x 158 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}208}]:} \PY{n+nb}{list}\PY{p}{(}\PY{n}{tweets\PYZus{}df}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}208}]:} ['contributors',
+           'coordinates',
+           'created\_at',
+           'display\_text\_range',
+           'entities.hashtags',
+           'entities.media',
+           'entities.symbols',
+           'entities.urls',
+           'entities.user\_mentions',
+           'extended\_entities.media',
+           'favorite\_count',
+           'favorited',
+           'full\_text',
+           'geo',
+           'id',
+           'id\_str',
+           'in\_reply\_to\_screen\_name',
+           'in\_reply\_to\_status\_id',
+           'in\_reply\_to\_status\_id\_str',
+           'in\_reply\_to\_user\_id',
+           'in\_reply\_to\_user\_id\_str',
+           'is\_quote\_status',
+           'lang',
+           'place',
+           'place.bounding\_box.coordinates',
+           'place.bounding\_box.type',
+           'place.contained\_within',
+           'place.country',
+           'place.country\_code',
+           'place.full\_name',
+           'place.id',
+           'place.name',
+           'place.place\_type',
+           'place.url',
+           'possibly\_sensitive',
+           'possibly\_sensitive\_appealable',
+           'quoted\_status.contributors',
+           'quoted\_status.coordinates',
+           'quoted\_status.created\_at',
+           'quoted\_status.display\_text\_range',
+           'quoted\_status.entities.hashtags',
+           'quoted\_status.entities.media',
+           'quoted\_status.entities.symbols',
+           'quoted\_status.entities.urls',
+           'quoted\_status.entities.user\_mentions',
+           'quoted\_status.extended\_entities.media',
+           'quoted\_status.favorite\_count',
+           'quoted\_status.favorited',
+           'quoted\_status.full\_text',
+           'quoted\_status.geo',
+           'quoted\_status.id',
+           'quoted\_status.id\_str',
+           'quoted\_status.in\_reply\_to\_screen\_name',
+           'quoted\_status.in\_reply\_to\_status\_id',
+           'quoted\_status.in\_reply\_to\_status\_id\_str',
+           'quoted\_status.in\_reply\_to\_user\_id',
+           'quoted\_status.in\_reply\_to\_user\_id\_str',
+           'quoted\_status.is\_quote\_status',
+           'quoted\_status.lang',
+           'quoted\_status.place',
+           'quoted\_status.possibly\_sensitive',
+           'quoted\_status.possibly\_sensitive\_appealable',
+           'quoted\_status.retweet\_count',
+           'quoted\_status.retweeted',
+           'quoted\_status.source',
+           'quoted\_status.truncated',
+           'quoted\_status.user.id',
+           'quoted\_status.user.id\_str',
+           'quoted\_status\_id',
+           'quoted\_status\_id\_str',
+           'quoted\_status\_permalink.display',
+           'quoted\_status\_permalink.expanded',
+           'quoted\_status\_permalink.url',
+           'retweet\_count',
+           'retweeted',
+           'retweeted\_status.contributors',
+           'retweeted\_status.coordinates',
+           'retweeted\_status.created\_at',
+           'retweeted\_status.display\_text\_range',
+           'retweeted\_status.entities.hashtags',
+           'retweeted\_status.entities.media',
+           'retweeted\_status.entities.symbols',
+           'retweeted\_status.entities.urls',
+           'retweeted\_status.entities.user\_mentions',
+           'retweeted\_status.extended\_entities.media',
+           'retweeted\_status.favorite\_count',
+           'retweeted\_status.favorited',
+           'retweeted\_status.full\_text',
+           'retweeted\_status.geo',
+           'retweeted\_status.id',
+           'retweeted\_status.id\_str',
+           'retweeted\_status.in\_reply\_to\_screen\_name',
+           'retweeted\_status.in\_reply\_to\_status\_id',
+           'retweeted\_status.in\_reply\_to\_status\_id\_str',
+           'retweeted\_status.in\_reply\_to\_user\_id',
+           'retweeted\_status.in\_reply\_to\_user\_id\_str',
+           'retweeted\_status.is\_quote\_status',
+           'retweeted\_status.lang',
+           'retweeted\_status.place',
+           'retweeted\_status.place.bounding\_box.coordinates',
+           'retweeted\_status.place.bounding\_box.type',
+           'retweeted\_status.place.contained\_within',
+           'retweeted\_status.place.country',
+           'retweeted\_status.place.country\_code',
+           'retweeted\_status.place.full\_name',
+           'retweeted\_status.place.id',
+           'retweeted\_status.place.name',
+           'retweeted\_status.place.place\_type',
+           'retweeted\_status.place.url',
+           'retweeted\_status.possibly\_sensitive',
+           'retweeted\_status.possibly\_sensitive\_appealable',
+           'retweeted\_status.quoted\_status.contributors',
+           'retweeted\_status.quoted\_status.coordinates',
+           'retweeted\_status.quoted\_status.created\_at',
+           'retweeted\_status.quoted\_status.display\_text\_range',
+           'retweeted\_status.quoted\_status.entities.hashtags',
+           'retweeted\_status.quoted\_status.entities.media',
+           'retweeted\_status.quoted\_status.entities.symbols',
+           'retweeted\_status.quoted\_status.entities.urls',
+           'retweeted\_status.quoted\_status.entities.user\_mentions',
+           'retweeted\_status.quoted\_status.extended\_entities.media',
+           'retweeted\_status.quoted\_status.favorite\_count',
+           'retweeted\_status.quoted\_status.favorited',
+           'retweeted\_status.quoted\_status.full\_text',
+           'retweeted\_status.quoted\_status.geo',
+           'retweeted\_status.quoted\_status.id',
+           'retweeted\_status.quoted\_status.id\_str',
+           'retweeted\_status.quoted\_status.in\_reply\_to\_screen\_name',
+           'retweeted\_status.quoted\_status.in\_reply\_to\_status\_id',
+           'retweeted\_status.quoted\_status.in\_reply\_to\_status\_id\_str',
+           'retweeted\_status.quoted\_status.in\_reply\_to\_user\_id',
+           'retweeted\_status.quoted\_status.in\_reply\_to\_user\_id\_str',
+           'retweeted\_status.quoted\_status.is\_quote\_status',
+           'retweeted\_status.quoted\_status.lang',
+           'retweeted\_status.quoted\_status.place',
+           'retweeted\_status.quoted\_status.possibly\_sensitive',
+           'retweeted\_status.quoted\_status.possibly\_sensitive\_appealable',
+           'retweeted\_status.quoted\_status.retweet\_count',
+           'retweeted\_status.quoted\_status.retweeted',
+           'retweeted\_status.quoted\_status.source',
+           'retweeted\_status.quoted\_status.truncated',
+           'retweeted\_status.quoted\_status.user.id',
+           'retweeted\_status.quoted\_status.user.id\_str',
+           'retweeted\_status.quoted\_status\_id',
+           'retweeted\_status.quoted\_status\_id\_str',
+           'retweeted\_status.quoted\_status\_permalink.display',
+           'retweeted\_status.quoted\_status\_permalink.expanded',
+           'retweeted\_status.quoted\_status\_permalink.url',
+           'retweeted\_status.retweet\_count',
+           'retweeted\_status.retweeted',
+           'retweeted\_status.source',
+           'retweeted\_status.truncated',
+           'retweeted\_status.user.id',
+           'retweeted\_status.user.id\_str',
+           'source',
+           'truncated',
+           'user.id',
+           'user.id\_str']
+\end{Verbatim}
+            
+    There are 158 columns in the normalized download of tweets. I'll remove
+all except the useful columns from this view. For inclusion: - id\_str -
+retweet\_count - favorite\_count
+
+    \paragraph{Columns of Image
+Prediction}\label{columns-of-image-prediction}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}209}]:} \PY{n}{images\PYZus{}df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}209}]:}                                           jpg\_url  img\_num  \textbackslash{}
+          tweet\_id                                                     
+          666020888022790149  https://pbs.twimg.com/medi{\ldots}        1   
+          666029285002620928  https://pbs.twimg.com/medi{\ldots}        1   
+          666033412701032449  https://pbs.twimg.com/medi{\ldots}        1   
+          666044226329800704  https://pbs.twimg.com/medi{\ldots}        1   
+          666049248165822465  https://pbs.twimg.com/medi{\ldots}        1   
+          
+                                                  p1   p1\_conf  p1\_dog  \textbackslash{}
+          tweet\_id                                                       
+          666020888022790149  Welsh\_springer\_spaniel  0.465074    True   
+          666029285002620928                 redbone  0.506826    True   
+          666033412701032449         German\_shepherd  0.596461    True   
+          666044226329800704     Rhodesian\_ridgeback  0.408143    True   
+          666049248165822465      miniature\_pinscher  0.560311    True   
+          
+                                              p2   p2\_conf  p2\_dog                   p3  \textbackslash{}
+          tweet\_id                                                                        
+          666020888022790149              collie  0.156665    True    Shetland\_sheepdog   
+          666029285002620928  miniature\_pinscher  0.074192    True  Rhodesian\_ridgeback   
+          666033412701032449            malinois  0.138584    True           bloodhound   
+          666044226329800704             redbone  0.360687    True   miniature\_pinscher   
+          666049248165822465          Rottweiler  0.243682    True             Doberman   
+          
+                               p3\_conf  p3\_dog  
+          tweet\_id                              
+          666020888022790149  0.061428    True  
+          666029285002620928  0.072010    True  
+          666033412701032449  0.116197    True  
+          666044226329800704  0.222752    True  
+          666049248165822465  0.154629    True  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}210}]:} \PY{n}{images\PYZus{}df}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{tweet\PYZus{}id}\PY{o}{.}\PY{n}{nunique}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{images\PYZus{}df}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}210}]:} (2075, 2075)
+\end{Verbatim}
+            
+    All predictions are on single rows, without duplicate tweet\_id.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}211}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{boxplot}\PY{p}{(}\PY{n}{images\PYZus{}df}\PY{p}{[}\PY{n}{images\PYZus{}df}\PY{o}{.}\PY{n}{p1\PYZus{}dog} \PY{o}{==} \PY{k+kc}{True}\PY{p}{]}\PY{o}{.}\PY{n}{p1\PYZus{}conf}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylim}\PY{p}{(}\PY{n}{ymax}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{boxplot}\PY{p}{(}\PY{n}{images\PYZus{}df}\PY{p}{[}\PY{n}{images\PYZus{}df}\PY{o}{.}\PY{n}{p2\PYZus{}dog} \PY{o}{==} \PY{k+kc}{True}\PY{p}{]}\PY{o}{.}\PY{n}{p2\PYZus{}conf}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylim}\PY{p}{(}\PY{n}{ymax}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{boxplot}\PY{p}{(}\PY{n}{images\PYZus{}df}\PY{p}{[}\PY{n}{images\PYZus{}df}\PY{o}{.}\PY{n}{p3\PYZus{}dog} \PY{o}{==} \PY{k+kc}{True}\PY{p}{]}\PY{o}{.}\PY{n}{p3\PYZus{}conf}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylim}\PY{p}{(}\PY{n}{ymax}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_39_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    The highest confindence predictions come from Prediction 1.
+
+    \subsection{Cleaning and Tidying Data}\label{cleaning-and-tidying-data}
+
+\begin{itemize}
+\tightlist
+\item
+  Low quality (dirty) data has content issues. Fix 8 of these.
+\item
+  Untidy (messy) data has structural issues. Fix 2 of these.
+\end{itemize}
+
+    \paragraph{Remove Extra Archive
+Columns}\label{remove-extra-archive-columns}
+
+Remove columns with data unnecessary for analysis.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}212}]:} \PY{n}{archive\PYZus{}df}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{in\PYZus{}reply\PYZus{}to\PYZus{}status\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{in\PYZus{}reply\PYZus{}to\PYZus{}user\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                                   \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{source}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{retweeted\PYZus{}status\PYZus{}user\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                                   \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{retweeted\PYZus{}status\PYZus{}timestamp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{errors}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ignore}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \paragraph{Remove Extra Tweet Download
+Columns}\label{remove-extra-tweet-download-columns}
+
+Remove all columns except those needed for analysis.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}213}]:} \PY{n}{tweets\PYZus{}df} \PY{o}{=} \PY{n}{tweets\PYZus{}df}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{id\PYZus{}str}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{retweet\PYZus{}count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{favorite\PYZus{}count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}index}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{id\PYZus{}str}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \paragraph{There Aren't Even Dogs in These (Remove Tweets without
+Dogs)}\label{there-arent-even-dogs-in-these-remove-tweets-without-dogs}
+
+Some tweets had no dogs in them or they weren't specifically about the
+dog; remove these.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}214}]:} \PY{n}{r\PYZus{}col} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{835152434251116546}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{746906459439529985}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{670842764863651840}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{855862651834028034}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{810984652412424192}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{archive\PYZus{}df}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{index}\PY{o}{=}\PY{n}{r\PYZus{}col}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{errors}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ignore}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \paragraph{Remove Retweets and Tweets with No
+Photos}\label{remove-retweets-and-tweets-with-no-photos}
+
+We love them all, but we want to see original tweets with photos.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}215}]:} \PY{n}{archive\PYZus{}df} \PY{o}{=} \PY{n}{archive\PYZus{}df}\PY{p}{[}\PY{n}{archive\PYZus{}df}\PY{o}{.}\PY{n}{retweeted\PYZus{}status\PYZus{}id}\PY{o}{.}\PY{n}{isna}\PY{p}{(}\PY{p}{)} \PY{o}{\PYZam{}}
+                                  \PY{o}{\PYZti{}}\PY{n}{archive\PYZus{}df}\PY{o}{.}\PY{n}{expanded\PYZus{}urls}\PY{o}{.}\PY{n}{isna}\PY{p}{(}\PY{p}{)}\PY{p}{]}
+          \PY{n+nb}{len}\PY{p}{(}\PY{n}{archive\PYZus{}df}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}215}]:} 2113
+\end{Verbatim}
+            
+    After removal of retweets and tweets without photos, 2114 tweets remain.
+
+    \paragraph{DoggoLingo (Tidy Structure)}\label{doggolingo-tidy-structure}
+
+Combine \emph{doggo, floofer, pupper,} and \emph{puppo} columns in to a
+single \emph{doggolingo} variable.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}216}]:} \PY{n}{cols} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{doggo}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{floofer}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pupper}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{puppo}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{archive\PYZus{}df}\PY{p}{[}\PY{n}{cols}\PY{p}{]} \PY{o}{=} \PY{n}{archive\PYZus{}df}\PY{p}{[}\PY{n}{cols}\PY{p}{]}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{None}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{archive\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{doggolingo}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{archive\PYZus{}df}\PY{p}{[}\PY{n}{cols}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{;}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n+nb}{filter}\PY{p}{(}\PY{k+kc}{None}\PY{p}{,} \PY{n}{x}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+          
+          \PY{n}{archive\PYZus{}df}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{cols}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{columns}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{errors}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ignore}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \paragraph{A Dog Named None (Correct
+Names)}\label{a-dog-named-none-correct-names}
+
+    For names that are 'None' or all lower case, convert them to blanks.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}217}]:} \PY{n}{archive\PYZus{}df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{(}\PY{n}{archive\PYZus{}df}\PY{o}{.}\PY{n}{name}\PY{o}{==}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{None}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{o}{|}
+                         \PY{p}{(}\PY{n}{archive\PYZus{}df}\PY{o}{.}\PY{n}{name}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{islower}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}
+\end{Verbatim}
+
+
+    \paragraph{They're Good Dogs (Correct
+Ratings)}\label{theyre-good-dogs-correct-ratings}
+
+Update ratings that were found with incorrect denominators.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}218}]:} \PY{n}{update\PYZus{}ratings} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{[}
+              \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tweet\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{835246439529840640}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rating\PYZus{}numerator}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{13}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rating\PYZus{}denominator}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{10}\PY{p}{\PYZcb{}}\PY{p}{,}
+              \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tweet\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{832088576586297345}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rating\PYZus{}numerator}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{pd}\PY{o}{.}\PY{n}{np}\PY{o}{.}\PY{n}{nan}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rating\PYZus{}denominator}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{pd}\PY{o}{.}\PY{n}{np}\PY{o}{.}\PY{n}{nan}\PY{p}{\PYZcb{}}\PY{p}{,}
+              \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tweet\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{775096608509886464}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rating\PYZus{}numerator}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{14}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rating\PYZus{}denominator}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{10}\PY{p}{\PYZcb{}}\PY{p}{,}
+              \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tweet\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{740373189193256964}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rating\PYZus{}numerator}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{14}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rating\PYZus{}denominator}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{10}\PY{p}{\PYZcb{}}\PY{p}{,}
+              \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tweet\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{682962037429899265}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rating\PYZus{}numerator}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{10}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rating\PYZus{}denominator}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{10}\PY{p}{\PYZcb{}}\PY{p}{,}
+              \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tweet\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{682808988178739200}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rating\PYZus{}numerator}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{pd}\PY{o}{.}\PY{n}{np}\PY{o}{.}\PY{n}{nan}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rating\PYZus{}denominator}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{pd}\PY{o}{.}\PY{n}{np}\PY{o}{.}\PY{n}{nan}\PY{p}{\PYZcb{}}\PY{p}{,}
+              \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tweet\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{666287406224695296}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rating\PYZus{}numerator}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{9}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rating\PYZus{}denominator}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{10}\PY{p}{\PYZcb{}}\PY{p}{,}
+              \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tweet\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{722974582966214656}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rating\PYZus{}numerator}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{13}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rating\PYZus{}denominator}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{10}\PY{p}{\PYZcb{}}\PY{p}{,}
+              \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tweet\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{716439118184652801}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rating\PYZus{}numerator}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{11}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rating\PYZus{}denominator}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{10}\PY{p}{\PYZcb{}}\PY{p}{,}
+              \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tweet\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{680494726643068929}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rating\PYZus{}numerator}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{11.26}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rating\PYZus{}denominator}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{10}\PY{p}{\PYZcb{}}\PY{p}{,}
+              \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tweet\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{778027034220126208}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rating\PYZus{}numerator}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{11.27}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rating\PYZus{}denominator}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{10}\PY{p}{\PYZcb{}}\PY{p}{,}
+              \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tweet\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{786709082849828864}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rating\PYZus{}numerator}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{9.75}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rating\PYZus{}denominator}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{10}\PY{p}{\PYZcb{}}
+          \PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{set\PYZus{}index}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tweet\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          
+          \PY{n}{archive\PYZus{}df}\PY{o}{.}\PY{n}{update}\PY{p}{(}\PY{n}{update\PYZus{}ratings}\PY{p}{,} \PY{n}{overwrite}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \paragraph{Normalize Ratings}\label{normalize-ratings}
+
+For ratings that contain multiple dogs (denominators are a multiple of
+10), save a normalized numerator that is the rating out of 10.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}219}]:} \PY{n}{archive\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rating\PYZus{}numerator\PYZus{}normal}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{archive\PYZus{}df}\PY{o}{.}\PY{n}{rating\PYZus{}numerator} \PY{o}{/} \PY{p}{(}\PY{n}{archive\PYZus{}df}\PY{o}{.}\PY{n}{rating\PYZus{}denominator}\PY{o}{/}\PY{l+m+mi}{10}\PY{p}{)}
+\end{Verbatim}
+
+
+    \paragraph{Award for the Most Confident Dog (Tidy Structure and Simplify
+Predictions)}\label{award-for-the-most-confident-dog-tidy-structure-and-simplify-predictions}
+
+Select the prediction that is a dog and is the most confident about dog
+type as the ultimate prediction.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}220}]:} \PY{c+c1}{\PYZsh{} create three temporary DataFrames of info, rename columns to append all stacked}
+          \PY{n}{images\PYZus{}p1\PYZus{}df} \PY{o}{=} \PY{n}{images\PYZus{}df}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tweet\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{jpg\PYZus{}url}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{img\PYZus{}num}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{p1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{p1\PYZus{}conf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{p1\PYZus{}dog}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+          \PY{n}{images\PYZus{}p2\PYZus{}df} \PY{o}{=} \PY{n}{images\PYZus{}df}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tweet\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{jpg\PYZus{}url}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{img\PYZus{}num}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{p2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{p2\PYZus{}conf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{p2\PYZus{}dog}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+          \PY{n}{images\PYZus{}p3\PYZus{}df} \PY{o}{=} \PY{n}{images\PYZus{}df}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tweet\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{jpg\PYZus{}url}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{img\PYZus{}num}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{p3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{p3\PYZus{}conf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{p3\PYZus{}dog}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+          
+          \PY{n}{images\PYZus{}p1\PYZus{}df}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{p1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{breed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{p1\PYZus{}conf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{conf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{p1\PYZus{}dog}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{is\PYZus{}dog}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          \PY{n}{images\PYZus{}p2\PYZus{}df}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{p2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{breed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{p2\PYZus{}conf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{conf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{p2\PYZus{}dog}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{is\PYZus{}dog}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          \PY{n}{images\PYZus{}p3\PYZus{}df}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{p3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{breed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{p3\PYZus{}conf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{conf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{p3\PYZus{}dog}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{is\PYZus{}dog}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          
+          \PY{n}{a} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{)}
+          \PY{n}{a} \PY{o}{=} \PY{p}{(}\PY{n}{a}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{images\PYZus{}p1\PYZus{}df}\PY{p}{)}
+                \PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{images\PYZus{}p2\PYZus{}df}\PY{p}{)}
+                \PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{images\PYZus{}p3\PYZus{}df}\PY{p}{)}
+              \PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} Select only \PYZsq{}dog\PYZsq{} images, then keep only the highest confidence dog image}
+          \PY{c+c1}{\PYZsh{} reset index and massage DataFrame for later use}
+          \PY{n}{images\PYZus{}df} \PY{o}{=} \PY{p}{(}\PY{n}{a}\PY{p}{[}\PY{n}{a}\PY{o}{.}\PY{n}{is\PYZus{}dog}\PY{o}{==}\PY{k+kc}{True}\PY{p}{]}
+                        \PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tweet\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{jpg\PYZus{}url}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{img\PYZus{}num}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+                        \PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{x}\PY{p}{[}\PY{n}{x}\PY{o}{.}\PY{n}{conf}\PY{o}{==}\PY{n}{x}\PY{o}{.}\PY{n}{conf}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+                        \PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tweet\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{jpg\PYZus{}url}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{img\PYZus{}num}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+                        \PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}
+                        \PY{o}{.}\PY{n}{set\PYZus{}index}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tweet\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                        \PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{level\PYZus{}3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+                      \PY{p}{)}
+\end{Verbatim}
+
+
+    \paragraph{Clean Dog Breeds}\label{clean-dog-breeds}
+
+Clean the names of breeds to remove underscores and convert to title
+case.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}221}]:} \PY{n}{images\PYZus{}df}\PY{o}{.}\PY{n}{breed} \PY{o}{=} \PY{n}{images\PYZus{}df}\PY{o}{.}\PY{n}{breed}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZus{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \paragraph{Join Tables}\label{join-tables}
+
+Join the information from the tweet details downloaded from Twitter and
+image predictions to the WeRateDogs Twitter archive.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}222}]:} \PY{n}{master\PYZus{}df} \PY{o}{=} \PY{n}{archive\PYZus{}df}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{tweets\PYZus{}df}\PY{p}{)}
+          \PY{n}{master\PYZus{}df} \PY{o}{=} \PY{n}{master\PYZus{}df}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{images\PYZus{}df}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsection{Store Twitter Archive
+Master}\label{store-twitter-archive-master}
+
+Store the final cleaned archive according to project requirements.
+
+\emph{Store the clean DataFrame(s) in a CSV file with the main one named
+twitter\_archive\_master.csv. If additional files exist because multiple
+tables are required for tidiness, name these files appropriately.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}223}]:} \PY{n}{master\PYZus{}df}\PY{o}{.}\PY{n}{to\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{twitter\PYZus{}archive\PYZus{}master.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}224}]:} \PY{n}{master\PYZus{}df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{twitter\PYZus{}archive\PYZus{}master.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{parse\PYZus{}dates}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{timestamp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsection{Visualization and
+Insights}\label{visualization-and-insights}
+
+    \paragraph{How have ratings changed over
+time?}\label{how-have-ratings-changed-over-time}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}300}]:} \PY{n}{g} \PY{o}{=} \PY{n}{master\PYZus{}df}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{timestamp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rating\PYZus{}numerator\PYZus{}normal}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}index}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{timestamp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{g} \PY{o}{=} \PY{n}{g}\PY{p}{[}\PY{n}{g}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rating\PYZus{}numerator\PYZus{}normal}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZlt{}} \PY{l+m+mi}{1776}\PY{p}{]} \PY{c+c1}{\PYZsh{} Removed Independence Day rating because of extreme outlying}
+          \PY{n}{g}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{g}\PY{o}{.}\PY{n}{index}\PY{o}{.}\PY{n}{to\PYZus{}period}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{M}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          
+          \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{)}\PY{p}{)}
+          \PY{n}{g}\PY{o}{.}\PY{n}{boxplot}\PY{p}{(}\PY{n}{by}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ax}\PY{o}{=}\PY{n}{ax}\PY{p}{,} \PY{n}{rot}\PY{o}{=}\PY{l+m+mi}{90}\PY{p}{)}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}yscale}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{log}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{suptitle}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Time Series of Rating Numerators by Month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{n}{xlabel}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Year\PYZhy{}Month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ylabel}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Rating (Log)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_71_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    In late 2015, WeRateDogs flirted with conforming to a 10-point scale.
+Ratings were near 10 more often than not, but ratings significantly
+under 10 were typically given to strange dogs (ones that have no tails
+and who lay eggs, such as chickens) and dogs behaving badly (such as one
+who was said to be driving with his eyes closed). In 2016, the median
+rating climbed above 10, with typically fewer than 25\% of ratings lower
+than 10. By late 2016, ratings of 10 or lower became outliers and the
+median rating rose again. Ratings of 14 remain the domain of a few
+exceptional good boys, and any ratings higher appear to be one-offs,
+including: - Snoop Dogg - 420 - a devilishly dressed doggo - 666 - a
+patriotic pupper on July 4 - 1776
+
+    \paragraph{Dog Names}\label{dog-names}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}235}]:} \PY{c+c1}{\PYZsh{} Top 10 Names}
+          \PY{n}{master\PYZus{}df}\PY{o}{.}\PY{n}{name}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{nlargest}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}235}]:} Charlie    11
+          Lucy       11
+          Oliver     10
+          Cooper     10
+          Tucker      9
+          Penny       9
+          Winston     8
+          Lola        8
+          Sadie       8
+          Toby        7
+          Name: name, dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}234}]:} \PY{c+c1}{\PYZsh{} Number of Different (Unique) Names}
+          \PY{n}{master\PYZus{}df}\PY{o}{.}\PY{n}{name}\PY{o}{.}\PY{n}{nunique}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}234}]:} 930
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}247}]:} \PY{c+c1}{\PYZsh{} Number of Names Used Only Once}
+          \PY{n+nb}{len}\PY{p}{(}\PY{n}{master\PYZus{}df}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tweet\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{filter}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n+nb}{len}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{o}{==}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}247}]:} 701
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}255}]:} \PY{c+c1}{\PYZsh{} Tweets without Names}
+          \PY{n}{master\PYZus{}df}\PY{o}{.}\PY{n}{name}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}255}]:} 723
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}257}]:} \PY{c+c1}{\PYZsh{} Histogram of times a dog name is used}
+          \PY{n}{master\PYZus{}df}\PY{o}{.}\PY{n}{name}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_78_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Of 2.1K tweets in the analysis set, \textasciitilde{}1.4K tweets had dog
+names in them. Of those, 701 had names that no other dog in the set had,
+and there were a total of 930 individual names. That means 219 names
+were used two or more times. As the histogram shows, the trend is toward
+unique dog names. This could change with a larger data set. The top ten
+dog names (and the number of times they occurred) on WeRateDogs are:
+
+\begin{itemize}
+\tightlist
+\item
+  11: Charlie, Lucy
+\item
+  10: Oliver, Cooper
+\item
+  9: Tucker, Penny
+\item
+  8: Winston, Lola, Sadie
+\item
+  7: Toby
+\end{itemize}
+
+    \paragraph{Favorite DogRates}\label{favorite-dogrates}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}266}]:} \PY{n}{master\PYZus{}df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{master\PYZus{}df}\PY{o}{.}\PY{n}{favorite\PYZus{}count} \PY{o}{\PYZgt{}} \PY{l+m+mi}{0}\PY{p}{,} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{favorite\PYZus{}count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{boxplot}\PY{p}{(}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_81_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    The number of outliers for favorited count is interesting. I'll compare
+the outlier set to the rest of the population.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}293}]:} \PY{c+c1}{\PYZsh{} Define outliers as (Q3 + 1.5 x IQR)}
+          \PY{n}{favorite\PYZus{}count\PYZus{}3q} \PY{o}{=} \PY{n}{master\PYZus{}df}\PY{o}{.}\PY{n}{favorite\PYZus{}count}\PY{o}{.}\PY{n}{quantile}\PY{p}{(}\PY{l+m+mf}{0.75}\PY{p}{)}
+          \PY{n}{favorite\PYZus{}count\PYZus{}iqr} \PY{o}{=} \PY{n}{master\PYZus{}df}\PY{o}{.}\PY{n}{favorite\PYZus{}count}\PY{o}{.}\PY{n}{quantile}\PY{p}{(}\PY{l+m+mf}{0.75}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{master\PYZus{}df}\PY{o}{.}\PY{n}{favorite\PYZus{}count}\PY{o}{.}\PY{n}{quantile}\PY{p}{(}\PY{l+m+mf}{0.25}\PY{p}{)}
+          \PY{n}{outlier\PYZus{}df} \PY{o}{=} \PY{n}{master\PYZus{}df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{master\PYZus{}df}\PY{o}{.}\PY{n}{favorite\PYZus{}count} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{p}{(}\PY{n}{favorite\PYZus{}count\PYZus{}3q}\PY{o}{+}\PY{p}{(}\PY{l+m+mf}{1.5}\PY{o}{*}\PY{n}{favorite\PYZus{}count\PYZus{}iqr}\PY{p}{)}\PY{p}{)}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}292}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n}{master\PYZus{}df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{master\PYZus{}df}\PY{o}{.}\PY{n}{rating\PYZus{}numerator\PYZus{}normal} \PY{o}{\PYZlt{}} \PY{l+m+mi}{1776}\PY{p}{,} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rating\PYZus{}numerator\PYZus{}normal}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{boxplot}\PY{p}{(}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}
+          \PY{n}{outlier\PYZus{}df}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rating\PYZus{}numerator\PYZus{}normal}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{boxplot}\PY{p}{(}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_84_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}299}]:} \PY{n}{master\PYZus{}df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{master\PYZus{}df}\PY{o}{.}\PY{n}{rating\PYZus{}numerator\PYZus{}normal}\PY{o}{\PYZlt{}}\PY{l+m+mi}{1776}\PY{p}{,} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rating\PYZus{}numerator\PYZus{}normal}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_85_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    The most favorited (outlier) tweets have dog ratings about 1 point
+higher than the median favorites of the total population. This is
+significant when most tweets have ratings 9-14.
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
